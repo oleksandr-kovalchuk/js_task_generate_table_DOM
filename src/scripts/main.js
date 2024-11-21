@@ -354,18 +354,23 @@ const people = [
   },
 ];
 
-people.forEach((person) => {
-  const personSex = person.sex === 'm' ? 'Male' : 'Female';
-  const personAge = person.died - person.born;
-  const personCentury = Math.ceil(person.died / 100);
-  const tr = document.createElement('tr');
+const dashboard = document.querySelector('.dashboard');
 
-  tr.innerHTML = `<td>${person.name}</td>
-                  <td>${personSex}</td>
-                  <td>${person.born}</td>
-                  <td>${person.died}</td>
-                  <td>${personAge}</td>
-                  <td>${personCentury}</td>`;
+people.forEach(({ name: personName, sex, born, died }) => {
+  const age = died - born;
+  const century = Math.ceil(died / 100);
+  const gender = sex === 'm' ? 'Male' : 'Female';
 
-  document.querySelector('.dashboard').append(tr);
+  const rowHTML = `
+    <tr>
+      <td>${personName}</td>
+      <td>${gender}</td>
+      <td>${born}</td>
+      <td>${died}</td>
+      <td>${age}</td>
+      <td>${century}</td>
+    </tr>
+  `;
+
+  dashboard.insertAdjacentHTML('beforeend', rowHTML);
 });
